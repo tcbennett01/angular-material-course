@@ -23,11 +23,11 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     displayedColumns= ["seqNo", "description", "duration"];
 
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
+    @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-    @ViewChild('input', { static: true }) input: ElementRef;
+    @ViewChild('input', { static: false }) input: ElementRef;
 
     constructor(private route: ActivatedRoute,
                 private coursesService: CoursesService) {
