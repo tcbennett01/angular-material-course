@@ -3,7 +3,7 @@
 
 This repository contains the code of the [Angular Material Course](https://angular-university.io/course/angular-material-course).
 
-This course repository is updated to Angular v10, and there is a  package-lock.json file available, for avoiding semantic versioning installation issues.
+This course repository is updated to Angular v12, and there is a  package-lock.json file available, for avoiding semantic versioning installation issues.
 
 ![Angular Material Course](https://s3-us-west-1.amazonaws.com/angular-university/course-images/material_design.png)
 
@@ -25,7 +25,7 @@ For running this project we need and npm installed on our machine. These are som
 
 With the following command the angular-cli will be installed globally in your machine:
 
-    npm install -g @angular/cli
+    npm install -g @angular/cli 
 
 
 # How To install this repository
@@ -33,15 +33,15 @@ With the following command the angular-cli will be installed globally in your ma
 We can install the master branch using the following commands:
 
     git clone https://github.com/angular-university/angular-material-course.git
-
+    
 This repository is made of several separate npm modules, that are installable separately. For example, to run the au-input module, we can do the following:
-
+    
     cd angular-material-course
     npm install
 
 Its also possible to install the modules as usual using npm:
 
-    npm install
+    npm install 
 
 NPM 5 or above has the big advantage that if you use it you will be installing the exact same dependencies than I installed in my machine, so you wont run into issues caused by semantic versioning updates.
 
@@ -59,13 +59,13 @@ This is a small Node REST API server.
 
 To run the frontend part of our code, we will use the Angular CLI:
 
-    npm start
+    npm start 
 
-The application is visible at port 4200, but you need to use HTTPS - [https://localhost:4200](https://localhost:4200)
+The application is visible at port 4200: [http://localhost:4200](http://localhost:4200)
 
-This application uses a self-signed certificate, so you will need to accept it using the browser. If you are using Chrome, you will need to click Advanced and then choose "Proceed to localhost".
 
-# Important
+
+# Important 
 
 This repository has multiple branches, have a look at the beginning of each section to see the name of the branch.
 
@@ -73,11 +73,11 @@ At certain points along the course, you will be asked to checkout other remote b
 
     git branch -a
 
-  The remote branches have their starting in origin, such as for example section-1.
+  The remote branches have their starting in origin, such as for example 1-navigation-and-containers.
 
 We can checkout the remote branch and start tracking it with a local branch that has the same name, by using the following command:
 
-      git checkout -b section-1 origin/section-1
+      git checkout -b section-1 origin/1-navigation-and-containers
 
 It's also possible to download a ZIP file for a given branch,  using the branch dropdown on this page on the top left, and then selecting the Clone or Download / Download as ZIP button.
 
@@ -96,8 +96,6 @@ If you are looking for the [Angular Security Masterclass](https://angular-univer
 [Angular Security Masterclass](https://github.com/angular-university/angular-security-course).
 
 ![Angular Security Masterclass](https://s3-us-west-1.amazonaws.com/angular-university/course-images/security-cover-small-v2.png)
-
-
 
 # Angular Advanced Library Laboratory Course
 
