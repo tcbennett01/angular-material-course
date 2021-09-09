@@ -8,6 +8,8 @@ import {CoursesService} from "../services/courses.service";
 import {debounceTime, distinctUntilChanged, startWith, tap, delay} from 'rxjs/operators';
 import {merge, fromEvent} from "rxjs";
 import {LessonsDataSource} from "../services/lessons.datasource";
+import {Lesson} from '../model/lesson';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 
 @Component({
@@ -103,6 +105,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     displayedColumns= ["seqNo", "description", "duration"];
 
+    expandedLesson: Lesson;
+
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -144,5 +148,15 @@ export class CourseComponent implements OnInit, AfterViewInit {
             this.paginator.pageSize);
     }
 
+
+  onToggleLesson(lesson: Lesson) {
+      console.log("Expanding lesson", lesson);
+    if (this.expandedLesson == lesson) {
+      this.expandedLesson = null;
+    }
+    else {
+      this.expandedLesson = lesson;
+    }
+  }
 
 }
