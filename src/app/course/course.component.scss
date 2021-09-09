@@ -32,6 +32,12 @@
     position: fixed;
 }
 
+.scrolling-container {
+  overflow:auto;
+  max-height: 250px;
+  max-width: 200px;
+}
+
 .lessons-table {
   min-height: 360px;
   margin-top: 10px;
