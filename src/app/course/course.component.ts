@@ -5,11 +5,11 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import {Course} from "../model/course";
 import {CoursesService} from "../services/courses.service";
-import {debounceTime, distinctUntilChanged, startWith, tap, delay} from 'rxjs/operators';
-import {merge, fromEvent} from "rxjs";
-import {LessonsDataSource} from "../services/lessons.datasource";
+import {debounceTime, distinctUntilChanged, startWith, tap, delay, catchError, finalize} from 'rxjs/operators';
+import {merge, fromEvent, of} from 'rxjs';
 import {Lesson} from '../model/lesson';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {SelectionModel} from '@angular/cdk/collections';
 
 
 @Component({
@@ -21,7 +21,10 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     course:Course;
 
-    dataSource: LessonsDataSource;
+    dataSource: Lesson[] = [];
+    loading = false;
+
+    currentPageSize = 0;
 
     lessons = [
        {
@@ -103,9 +106,11 @@ export class CourseComponent implements OnInit, AfterViewInit {
       }
     ];
 
-    displayedColumns= ["seqNo", "description", "duration"];
+    displayedColumns= ["select", "seqNo", "description", "duration"];
 
     expandedLesson: Lesson;
+
+    selection = new SelectionModel<Lesson>(true, []);
 
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -122,9 +127,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
         this.course = this.route.snapshot.data["course"];
 
-        this.dataSource = new LessonsDataSource(this.coursesService);
-
-        this.dataSource.loadLessons(this.course.id, 'asc', 0, 3);
+        this.loadLessonsPage();
 
     }
 
@@ -141,11 +144,19 @@ export class CourseComponent implements OnInit, AfterViewInit {
     }
 
     loadLessonsPage() {
-        this.dataSource.loadLessons(
-            this.course.id,
-            this.sort.direction,
-            this.paginator.pageIndex,
-            this.paginator.pageSize);
+
+      this.loading = true;
+
+      this.coursesService.findLessons(
+        this.course.id,
+        this.sort.direction,
+        this.paginator.pageIndex,
+        this.paginator.pageSize)
+        .pipe(
+          catchError(() => of([])),
+          finalize(() => this.loading = false)
+        )
+        .subscribe(lessons => this.dataSource = lessons);
     }
 
 
@@ -159,4 +170,26 @@ export class CourseComponent implements OnInit, AfterViewInit {
     }
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    return numSelected === this.dataSource.length;
+  }
+
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    }
+    else {
+      this.selection.select(...this.dataSource);
+    }
+
+    console.log(this.selection.selected);
+  }
+
+  onLessonSelected(lesson:Lesson) {
+
+      this.selection.toggle(lesson);
+
+      console.log(this.selection.selected);
+  }
 }
