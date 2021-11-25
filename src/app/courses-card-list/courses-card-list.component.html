@@ -1,38 +1,42 @@
 
+<mat-grid-list [cols]="cols" [rowHeight]="rowHeight" [ngClass]="{'handset-portrait': handsetPortrait}">
 
-<mat-card class="course-card mat-elevation-z7" *ngFor="let course of courses">
+  <mat-grid-tile *ngFor="let course of courses">
 
-    <mat-card-header>
+    <mat-card class="course-card mat-elevation-z7">
+
+      <mat-card-header>
 
         <mat-card-title>{{course.description}}</mat-card-title>
 
-    </mat-card-header>
+      </mat-card-header>
 
+      <img class="course-thumbnail" mat-card-image [src]="course.iconUrl">
 
-    <img mat-card-image [src]="course.iconUrl">
-
-
-
-    <mat-card-content>
+      <mat-card-content class="long-description">
 
         <p>{{course.longDescription}}</p>
 
-    </mat-card-content>
+      </mat-card-content>
 
 
-    <mat-card-actions class="course-actions">
+      <mat-card-actions class="course-actions">
 
         <button mat-raised-button color="primary"
-            [routerLink]="['courses', course.id]">
-            VIEW COURSE
+                [routerLink]="['courses', course.id]">
+          VIEW COURSE
         </button>
 
         <button mat-raised-button color="accent" (click)="editCourse(course)">
-            EDIT COURSE
+          EDIT COURSE
         </button>
 
-    </mat-card-actions>
+      </mat-card-actions>
+
+    </mat-card>
+
+  </mat-grid-tile>
+
+</mat-grid-list>
 
 
-
-</mat-card>
